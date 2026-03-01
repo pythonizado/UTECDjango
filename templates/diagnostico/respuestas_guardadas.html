@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Respuestas Guardadas</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Chango&family=Rowdies:wght@300;400;700&family=Russo+One&family=Sigmar&display=swap" rel="stylesheet">
+    
+   <style>/* Contenedor principal para el registro exitoso */
+        .success-container {
+            max-width: 600px;
+            margin: 100px auto;
+            padding: 40px;
+            background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco semi-transparente */
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        
+        /* Título de registro exitoso */
+        .success-title {
+            font-family: "Russo One", serif;
+            font-weight: 700;
+            color: #003366; /* Azul UTEC */
+            margin-bottom: 30px;
+            font-size: 2rem;
+        }
+        
+        /* Botón para volver al inicio */
+        .btn-home {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #26a7cb; /* Verde */
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-family: "Russo One", serif;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+        
+        .btn-home:hover {
+            background-color: #085097; /* Verde más oscuro */
+        }
+        </style>
+</head>
+<body>
+    <div class="background-overlay"></div>
+
+    <!-- Contenedor principal -->
+    <div class="success-container">
+        <h1 class="success-title">¡Respuestas Guardadas!</h1>
+        <a href="{% url 'home' %}" class="btn-home">Volver al inicio</a>
+    </div>
+</body>
+</html>

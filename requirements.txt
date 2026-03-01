@@ -1,0 +1,14 @@
+asgiref==3.8.1
+cssselect==1.2.0
+d==0.2.2
+Django==5.1.6
+et_xmlfile==2.0.0
+lxml==5.3.1
+Markdown==3.7
+openpyxl==3.1.5
+Pygments==2.19.1
+pyquery==2.0.1
+python-decouple==3.8
+sqlparse==0.5.3
+tzdata==2025.1
+whitenoise==6.9.0

@@ -1,0 +1,237 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página del Estudiante </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Chango&family=Rowdies:wght@300;400;700&family=Russo+One&family=Sigmar&display=swap" rel="stylesheet">
+    
+    <style>
+        .background-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('{% static "img/fondo.jpg" %}');
+            background-size: cover;
+            background-position: center;
+            filter: blur(10px);
+            z-index: -1;
+        }
+        
+        /* Contenedor principal del estudiante */
+        .correctas-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco semi-transparente */
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        
+        .correctas-title {
+            font-family: "Russo One", serif;
+            font-weight: 700;
+            color: #003366; /* Azul UTEC */
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+        
+        /* Tarjeta de ejercicio */
+        .exercise-card {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Título del ejercicio */
+        .exercise-title {
+            font-family: "Russo One", serif;
+            font-weight: 700;
+            color: #003366; /* Azul UTEC */
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        
+        /* Botón de Guardar Respuestas */
+        .btn-save {
+            width: 100%;
+            padding: 10px;
+            background-color: #26a7cb; /* Verde */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-family: "Russo One", serif;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+        
+        .btn-save:hover {
+            background-color: #085097; /* Verde más oscuro */
+        }
+        
+        /* Botón de Cerrar Sesión */
+        .btn-logout {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #26a7cb; /* Azul UTEC */
+            color: #ffffff; /* Blanco */
+            text-decoration: none;
+            border-radius: 5px;
+            font-family: "Russo One", serif;
+            font-size: 1rem;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        .btn-logout:hover {
+            background-color: #085097; /* Azul UTEC más oscuro */
+            color: #002244; /* Azul UTEC más oscuro */
+            font-family: "Russo One", serif;
+        }
+        /* Botón de Cerrar Sesión */
+        .btn-logout {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 2px;
+            margin-left: 30%;
+            margin-right: 30%;
+            background-color: #26a7cb; /* Azul UTEC */
+            color: #ffffff; /* Blanco */
+            text-decoration: none;
+            border-radius: 10px;
+            font-family: "Russo One", serif;
+            font-size: 1rem;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .btn-logout:hover {
+            background-color: #085097; /* Azul UTEC más oscuro */
+            color: #ffffff; /* Blanco */
+
+        }
+
+ 
+/* Estilo para los checkboxes redondos */
+.exercise-options input[type="checkbox"] {
+    appearance: none;  /* Ocultar el estilo predeterminado del checkbox */
+    width: 16px;
+    height: 16px;
+    border: 2px solid #ccc;
+    border-radius: 50%;  /* Hacerlo circular como un radio */
+    margin-right: 0%;
+    margin-bottom: 0%;
+    cursor: pointer;
+     /* Alinear verticalmente con el texto */
+}
+
+.exercise-options input[type="checkbox"]:checked {
+    background-color: #007bff;  /* Cambiar el color cuando está seleccionado */
+    border-color: #007bff;
+}
+
+/* Estilo para las etiquetas de las opciones */
+.exercise-options label {
+    font-size: 20px;
+    display: flex;
+    flex-direction:row;
+    align-items: center; 
+    gap:  15px;
+    justify-content: center;
+    
+}
+/* Contenedor principal */
+.correctas-container {
+    max-width: 800px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco semi-transparente */
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;  /* Centrar el contenido */
+}
+
+</style>
+</head>
+<body>
+    <!-- Pseudo-elemento para la imagen de fondo difuminada -->
+    <div class="background-overlay"></div>
+
+   
+    <div class="correctas-container">
+        <h1 class="correctas-title">Seleccione las respuestas correctas</h1>
+
+        <!-- Formulario de preguntas -->
+        <form method="post">
+            {% csrf_token %}
+            {% for pregunta, form in preguntas_forms %}
+                <div class="exercise-card">
+                    <h3 class="exercise-title">{{ pregunta.descripcion }}</h3>
+                    <div class="exercise-options">
+                        {{ form.seleccion }}
+                       
+                    </div>
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn-save">Guardar Respuestas</button>
+        </form>
+        <br>
+        <hr>
+        <form action="{% url 'logout' %}" method="post" class="logout-form">
+            {% csrf_token %}
+        <button type="submit" class="btn-logout">Cerrar Sesión</button>
+        </form>
+        <br>
+        <br>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Seleccionar todos los grupos de checkboxes
+            const gruposCheckboxes = document.querySelectorAll('.exercise-options');
+        
+            gruposCheckboxes.forEach(grupo => {
+                const checkboxes = grupo.querySelectorAll('input[type="checkbox"]');
+        
+                checkboxes.forEach(checkbox => {
+                    checkbox.addEventListener('change', function() {
+                        if (this.checked) {
+                            // Deseleccionar todos los demás checkboxes en el mismo grupo
+                            checkboxes.forEach(cb => {
+                                if (cb !== this) {
+                                    cb.checked = false;
+                                }
+                            });
+                        }
+                    });
+                });
+            });
+        
+            // Manejar el botón de deselección
+            const botonesDeseleccionar = document.querySelectorAll('.btn-deseleccionar');
+            botonesDeseleccionar.forEach(boton => {
+                boton.addEventListener('click', function() {
+                    const preguntaId = this.getAttribute('data-pregunta-id');
+                    const checkboxes = document.querySelectorAll(`input[name="pregunta_${preguntaId}_seleccion"]`);
+                    checkboxes.forEach(checkbox => {
+                        checkbox.checked = false;
+                    });
+                });
+            });
+        });
+        </script>
+    
+</body>
+</html>

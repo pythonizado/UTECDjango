@@ -1,0 +1,105 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Profesor</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Chango&family=Rowdies:wght@300;400;700&family=Russo+One&family=Sigmar&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Russo One", serif;
+            background-color: #ffffff; /* Fondo amarillo */
+            color: #000e3e;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh; /* Asegurar que el fondo cubra toda la página */
+            position: relative; /* Necesario para el pseudo-elemento */
+        }
+
+        /* Pseudo-elemento para la imagen de fondo difuminada */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('{% static "img/fondo.jpg" %}'); /* Imagen de fondo */
+            background-size: 100%; /* Cubrir toda el área */
+            background-position: center; /* Centrar la imagen */
+            background-repeat: no-repeat; /* Evitar que se repita */
+            filter: blur(10px); /* Aplicar difuminado */
+            z-index: -1; /* Colocar detrás del contenido */
+        }
+
+        /* Contenedor principal */
+        .register-container {
+            font-family: "Russo One", serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco semi-transparente */
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        /* Título del formulario */
+        .register-title {
+            font-family: "Russo One", serif;
+            font-weight: 700;
+            color: #032184;; /* Azul UTEC */
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+
+       
+
+   
+        .btn-register {
+            width: 100%;
+            padding: 5px;
+            background-color: #2196f3; /* Verde */
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-family: "Russo One", serif;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .btn-register:hover {
+            font-family: "Russo One", serif;
+            background-color: #1976d2; /* Verde más oscuro */
+            transform: scale(1.05);
+        }
+        #btn-menu{
+            background-color: #26a7cb;
+        }
+        #btn-register:hover{
+            background-color: #085097;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="background-overlay"></div>
+    <div class="register-container">
+    <h1 class="register-title">Registrar Profesor</h1>
+    <form method="post" class="register-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn-register" >Registrar</button>
+        <br>
+        <a href="{% url 'pagina_profesor' %}">
+            <button id="btn-menu" type="button" class="btn-register" >Volver al menú de profesor</button>
+        </a>
+    </form>
+    </div>
+</body>
+</html>
