@@ -125,9 +125,16 @@ LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = 'home'
 
 
+CSRF_TRUSTED_ORIGINS = config(
+    'CSRF_TRUSTED_ORIGINS',
+    default=''
+).split(',')
 
+
+'''
 CSRF_TRUSTED_ORIGINS = [
+    "https://utecdjango.onrender.com",
     "https://pythonizado27.pythonanywhere.com",
     "http://127.0.0.1:8000",
     "http://localhost:8000",
-]
+]'''
